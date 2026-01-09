@@ -369,3 +369,27 @@ MIT License - see [LICENSE](LICENSE) file for details.
 ---
 
 Made with ❤️ by [iNextLabs](https://inextlabs.com)
+
+## 🤖 GitHub Copilot Integration
+
+This project includes custom GitHub Copilot configuration for enhanced developer experience.
+
+### Quick Reference
+
+| Feature | Usage | Purpose |
+|---------|-------|---------|
+| **@python-package-dev** | `@python-package-dev [question]` | Package development expert |
+| **@test-writer** | `@test-writer [question]` | Test writing specialist |
+| **@docs-writer** | `@docs-writer [question]` | Documentation expert |
+| **/add-provider** | `/add-provider [name]` | Add new AI provider |
+| **/add-model** | `/add-model [name]` | Add model to registry |
+| **/release** | `/release [version]` | Release checklist |
+
+### Full Guide
+
+See **[COPILOT_USAGE_GUIDE.md](COPILOT_USAGE_GUIDE.md)** for complete documentation on:
+- Using agents, chat modes, and prompts
+- Best practices for Copilot interactions
+- Troubleshooting tips
+
+---

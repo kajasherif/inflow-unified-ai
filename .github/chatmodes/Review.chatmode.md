@@ -1,6 +1,6 @@
 ---
 description: Review code changes for quality, security, and best practices
-tools: ['codebase', 'search', 'usages', 'problems', 'changes']
+tools: ['search/codebase', 'search', 'usages', 'problems', 'changes']
 ---
 
 # Review Mode
