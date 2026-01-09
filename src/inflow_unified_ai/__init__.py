@@ -7,16 +7,16 @@ including Azure OpenAI, Anthropic, Google Gemini, and vLLM.
 
 from inflow_unified_ai.client import AIClient
 from inflow_unified_ai.models.requests import (
-    CompletionRequest, 
-    StructuredRequest, 
-    Message, 
+    CompletionRequest,
+    StructuredRequest,
+    Message,
     MessageRole,
     ResponseFormat,
     ReasoningEffort,
 )
 from inflow_unified_ai.models.responses import CompletionResponse, CompletionChunk, Usage
 from inflow_unified_ai.models.capabilities import (
-    ModelCapabilities, 
+    ModelCapabilities,
     ModelFamily,
     get_model_capabilities,
     is_reasoning_model,
@@ -32,7 +32,7 @@ __all__ = [
     "AIClient",
     # Request models
     "CompletionRequest",
-    "StructuredRequest", 
+    "StructuredRequest",
     "Message",
     "MessageRole",
     "ResponseFormat",

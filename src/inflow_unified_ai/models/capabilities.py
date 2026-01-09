@@ -21,7 +21,7 @@ import re
 
 class ModelFamily(str, Enum):
     """Model family classification."""
-    
+
     # Standard chat models
     GPT_35_TURBO = "gpt-35-turbo"
     GPT_4 = "gpt-4"
@@ -32,7 +32,7 @@ class ModelFamily(str, Enum):
     GPT_41_MINI = "gpt-4.1-mini"
     GPT_41_NANO = "gpt-4.1-nano"
     GPT_45_PREVIEW = "gpt-4.5-preview"
-    
+
     # O-series reasoning models
     O1_MINI = "o1-mini"
     O1 = "o1"
@@ -42,7 +42,7 @@ class ModelFamily(str, Enum):
     O3_PRO = "o3-pro"
     O4_MINI = "o4-mini"
     CODEX_MINI = "codex-mini"
-    
+
     # GPT-5 series reasoning models
     GPT_5_NANO = "gpt-5-nano"
     GPT_5_MINI = "gpt-5-mini"
@@ -56,15 +56,15 @@ class ModelFamily(str, Enum):
     GPT_51_CODEX_MAX = "gpt-5.1-codex-max"
     GPT_52 = "gpt-5.2"
     GPT_52_CHAT = "gpt-5.2-chat"
-    
+
     # Special/Router models
     MODEL_ROUTER = "model-router"
-    
+
     # Other providers
     CLAUDE = "claude"
     GEMINI = "gemini"
     VLLM = "vllm"
-    
+
     # Unknown/custom
     UNKNOWN = "unknown"
 
@@ -73,37 +73,37 @@ class ModelFamily(str, Enum):
 class ModelCapabilities:
     """
     Defines the capabilities and parameter support for a model.
-    
+
     This is used to intelligently map standardized requests to
     provider-specific API calls.
     """
-    
+
     family: ModelFamily
-    
+
     # Token parameter support
     supports_max_tokens: bool = True
     supports_max_completion_tokens: bool = False
     use_max_completion_tokens: bool = False  # If True, use max_completion_tokens instead
-    
+
     # Sampling parameter support
     supports_temperature: bool = True
     supports_top_p: bool = True
-    
+
     # Penalty parameter support
     supports_presence_penalty: bool = True
     supports_frequency_penalty: bool = True
-    
+
     # Reasoning support
     is_reasoning_model: bool = False
     supports_reasoning_effort: bool = False
     supported_reasoning_efforts: Set[str] = field(default_factory=lambda: {"low", "medium", "high"})
     default_reasoning_effort: Optional[str] = None
-    
+
     # Message role support
     supports_system_message: bool = True
     supports_developer_message: bool = False
     convert_system_to_developer: bool = False  # For o-series models
-    
+
     # Feature support
     supports_streaming: bool = True
     supports_tools: bool = True
@@ -111,24 +111,24 @@ class ModelCapabilities:
     supports_structured_output: bool = True
     supports_vision: bool = False
     supports_audio: bool = False
-    
+
     # Logprobs support
     supports_logprobs: bool = True
-    
+
     # Context window
     max_input_tokens: int = 128000
     max_output_tokens: int = 4096
-    
+
     # API requirements
     requires_api_version: Optional[str] = None
-    
+
     # Additional notes
     notes: str = ""
 
     def get_unsupported_params(self) -> List[str]:
         """Get list of unsupported parameter names."""
         unsupported = []
-        
+
         if not self.supports_temperature:
             unsupported.append("temperature")
         if not self.supports_top_p:
@@ -141,7 +141,7 @@ class ModelCapabilities:
             unsupported.extend(["logprobs", "top_logprobs", "logit_bias"])
         if not self.supports_max_tokens and not self.supports_max_completion_tokens:
             unsupported.append("max_tokens")
-            
+
         return unsupported
 
 
@@ -247,7 +247,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_input_tokens=16385,
         max_output_tokens=4096,
     ),
-    
     # =========================================================================
     # GPT-4 Series
     # =========================================================================
@@ -287,7 +286,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_input_tokens=128000,
         max_output_tokens=4096,
     ),
-    
     # =========================================================================
     # GPT-4o Series
     # =========================================================================
@@ -346,7 +344,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_input_tokens=128000,
         max_output_tokens=16384,
     ),
-    
     # =========================================================================
     # GPT-4.1 Series (Latest non-reasoning models)
     # =========================================================================
@@ -406,7 +403,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_input_tokens=128000,
         max_output_tokens=32768,
     ),
-    
     # =========================================================================
     # GPT-4.5 Preview
     # =========================================================================
@@ -420,7 +416,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_output_tokens=16384,
         notes="Preview model, may be retired",
     ),
-    
     # =========================================================================
     # O1 Series (Reasoning Models)
     # =========================================================================
@@ -534,7 +529,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_output_tokens=32768,
         notes="Preview model, will be retired",
     ),
-    
     # =========================================================================
     # O3 Series (Advanced Reasoning Models)
     # =========================================================================
@@ -677,7 +671,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_input_tokens=200000,
         max_output_tokens=100000,
     ),
-    
     # =========================================================================
     # O4 Series
     # =========================================================================
@@ -727,7 +720,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_input_tokens=200000,
         max_output_tokens=100000,
     ),
-    
     # =========================================================================
     # Codex-mini (Fine-tuned o4-mini)
     # =========================================================================
@@ -777,7 +769,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_input_tokens=200000,
         max_output_tokens=100000,
     ),
-    
     # =========================================================================
     # GPT-5 Series (Next-gen Reasoning Models)
     # =========================================================================
@@ -1003,7 +994,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_input_tokens=272000,
         max_output_tokens=128000,
     ),
-    
     # =========================================================================
     # GPT-5.1 Series
     # =========================================================================
@@ -1198,7 +1188,13 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         supports_frequency_penalty=False,
         is_reasoning_model=True,
         supports_reasoning_effort=True,
-        supported_reasoning_efforts={"minimal", "low", "medium", "high", "xhigh"},  # Supports xhigh!
+        supported_reasoning_efforts={
+            "minimal",
+            "low",
+            "medium",
+            "high",
+            "xhigh",
+        },  # Supports xhigh!
         supports_system_message=True,
         supports_developer_message=True,
         supports_streaming=True,
@@ -1210,7 +1206,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_output_tokens=128000,
         notes="Supports xhigh reasoning_effort; 'none' is NOT supported",
     ),
-    
     # =========================================================================
     # GPT-5.2 Series
     # =========================================================================
@@ -1236,7 +1231,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_input_tokens=272000,
         max_output_tokens=128000,
     ),
-    
     "gpt-5.2-chat": ModelCapabilities(
         family=ModelFamily.GPT_52_CHAT,
         supports_max_tokens=False,
@@ -1260,7 +1254,6 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
         max_output_tokens=128000,
         notes="Chat-optimized variant of GPT-5.2",
     ),
-    
     # =========================================================================
     # Model Router (Azure-specific smart routing)
     # =========================================================================
@@ -1289,34 +1282,35 @@ MODEL_CAPABILITIES_REGISTRY: Dict[str, ModelCapabilities] = {
 # HELPER FUNCTIONS
 # =============================================================================
 
+
 def get_model_capabilities(model: str) -> ModelCapabilities:
     """
     Get capabilities for a model identifier.
-    
+
     Attempts exact match first, then tries to match by prefix/pattern.
     Falls back to default capabilities for unknown models.
-    
+
     Args:
         model: Model identifier (e.g., "gpt-4o", "o3-mini", "gpt-5.1")
-        
+
     Returns:
         ModelCapabilities for the model
     """
     # Exact match
     if model in MODEL_CAPABILITIES_REGISTRY:
         return MODEL_CAPABILITIES_REGISTRY[model]
-    
+
     # Normalize model name (lowercase, handle Azure deployment names)
     normalized = model.lower().strip()
-    
+
     if normalized in MODEL_CAPABILITIES_REGISTRY:
         return MODEL_CAPABILITIES_REGISTRY[normalized]
-    
+
     # Try prefix matching for versioned models
     for registered_model in MODEL_CAPABILITIES_REGISTRY:
         if normalized.startswith(registered_model) or registered_model.startswith(normalized):
             return MODEL_CAPABILITIES_REGISTRY[registered_model]
-    
+
     # Pattern-based matching for model families
     patterns = [
         (r"^gpt-5\.2-chat", "gpt-5.2-chat"),
@@ -1353,12 +1347,12 @@ def get_model_capabilities(model: str) -> ModelCapabilities:
         (r"^gpt-35-turbo", "gpt-35-turbo"),
         (r"^gpt-3\.5-turbo", "gpt-35-turbo"),
     ]
-    
+
     for pattern, base_model in patterns:
         if re.match(pattern, normalized):
             if base_model in MODEL_CAPABILITIES_REGISTRY:
                 return MODEL_CAPABILITIES_REGISTRY[base_model]
-    
+
     # Default to GPT-4o-like capabilities for unknown models
     return ModelCapabilities(
         family=ModelFamily.UNKNOWN,
@@ -1374,15 +1368,15 @@ def get_model_capabilities(model: str) -> ModelCapabilities:
 def is_reasoning_model(model: str) -> bool:
     """
     Check if a model is a reasoning model (o-series or GPT-5+).
-    
+
     Reasoning models have different parameter requirements:
     - Use max_completion_tokens instead of max_tokens
     - Don't support temperature, top_p, penalties
     - May support reasoning_effort parameter
-    
+
     Args:
         model: Model identifier
-        
+
     Returns:
         True if the model is a reasoning model
     """
