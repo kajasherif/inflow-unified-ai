@@ -279,7 +279,7 @@ docs/
 
 ---
 
-## Chat Modes
+## Agents (Plan/Review)
 
 ### #plan - Planning Mode
 

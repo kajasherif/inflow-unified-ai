@@ -1,13 +1,13 @@
 # GitHub Copilot Usage Guide
 
-This guide explains how to use GitHub Copilot's custom agents, chat modes, and prompts configured for the **inflow-unified-ai** project.
+This guide explains how to use GitHub Copilot's custom agents, Agents (Plan/Review), and prompts configured for the **inflow-unified-ai** project.
 
 ## Table of Contents
 
 - [Prerequisites](#prerequisites)
 - [Quick Reference](#quick-reference)
 - [Using Agents](#using-agents)
-- [Using Chat Modes](#using-chat-modes)
+- [Using Agents (Plan/Review)](#using-chat-modes)
 - [Using Prompts](#using-prompts)
 - [Copilot Instructions](#copilot-instructions)
 - [Best Practices](#best-practices)
@@ -162,11 +162,11 @@ Agents are specialized AI assistants with domain expertise. Invoke them using `@
 
 ---
 
-## Using Chat Modes
+## Using Agents (Plan/Review)
 
-Chat modes change how Copilot responds. Select them from the chat input dropdown or type the mode name.
+Agents (Plan/Review) change how Copilot responds. Select them from the chat input dropdown or type the mode name.
 
-### Available Chat Modes
+### Available Agents (Plan/Review)
 
 #### Plan Mode
 
@@ -368,7 +368,7 @@ Copilot Instructions are automatically applied to all interactions. You don't ne
 - Project overview and structure
 - Development patterns and workflows
 - Agent modes documentation
-- Chat modes documentation
+- Agents (Plan/Review) documentation
 - Prompt documentation
 - CI/CD reference
 
@@ -453,13 +453,13 @@ Use Review mode to check your changes:
 3. Reload VS Code window: `Ctrl+Shift+P` → "Reload Window"
 4. Verify Copilot Chat extension is updated
 
-### Chat Modes Not Working
+### Agents (Plan/Review) Not Working
 
-**Problem**: Chat modes don't appear in dropdown.
+**Problem**: Agents (Plan/Review) don't appear in dropdown.
 
 **Solutions**:
-1. Ensure `.github/chatmodes/` folder exists
-2. Check file naming: `{name}.chatmode.md`
+1. Ensure `.github/agents/` folder exists
+2. Check file naming: `{name}.agent.md`
 3. Reload VS Code window
 4. Check Copilot Chat version (needs latest)
 
@@ -501,8 +501,8 @@ Use Review mode to check your changes:
 | `.github/agents/python-package-dev.agent.md` | Package dev agent |
 | `.github/agents/test-writer.agent.md` | Test writing agent |
 | `.github/agents/docs-writer.agent.md` | Documentation agent |
-| `.github/chatmodes/Plan.chatmode.md` | Planning mode |
-| `.github/chatmodes/Review.chatmode.md` | Review mode |
+| `.github/agents/Plan.agent.md` | Planning mode |
+| `.github/agents/Review.agent.md` | Review mode |
 | `.github/prompts/add-provider.prompt.md` | Add provider workflow |
 | `.github/prompts/add-model.prompt.md` | Add model workflow |
 | `.github/prompts/release.prompt.md` | Release checklist |
